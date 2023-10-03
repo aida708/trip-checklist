@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PackingList() {
+export default function PackingList({ items }) {
   const initialItems = [
     { id: 1, descripition: "Passports", quantity: 2, packed: true },
     { id: 2, descripition: "Jacket", quantity: 2, packed: false },
@@ -11,7 +11,7 @@ export default function PackingList() {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
