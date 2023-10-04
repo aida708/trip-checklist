@@ -1,31 +1,35 @@
 import React from "react";
 
-export default function PackingList({ items }) {
-  const initialItems = [
-    { id: 1, descripition: "Passports", quantity: 2, packed: true },
-    { id: 2, descripition: "Jacket", quantity: 2, packed: false },
-    { id: 3, descripition: " Socks", quantity: 2, packed: false },
-    { id: 4, descripition: "Charger", quantity: 2, packed: false },
-  ];
-
+export default function PackingList({ items, onDeleteItem, onToggleItem }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item
+            item={item}
+            onDeleteItem={onDeleteItem}
+            key={item.id}
+            onToggleItem={onToggleItem}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem, onToggleItem }) {
   return (
     <li>
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => onToggleItem(item.id)}
+      />
+
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.descripition}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
