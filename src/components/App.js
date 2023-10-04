@@ -6,23 +6,25 @@ import Stats from "./Stats";
 
 export default function App() {
   const [items, setItems] = useState([]);
-  const [numItems, setNumItems] = useState(0);
 
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
-    setNumItems((num) => num + 1);
+    // setNumItems((num) => num + 1);
   }
 
   function handleDeleteItem(id) {
     setItems((items) => items.filter((item) => item.id !== id));
   }
-
   function handleToggleItem(id) {
     setItems((items) =>
       items.map((item) =>
         item.id === id ? { ...item, packed: !item.packed } : item
       )
     );
+  }
+  function handleClearList() {
+    const confirmed = window.confirm("Delete all items? ");
+    if (confirmed) setItems([]);
   }
 
   return (
@@ -32,9 +34,10 @@ export default function App() {
       <PackingList
         items={items}
         onDeleteItem={handleDeleteItem}
-        onToggleItems={handleToggleItem}
+        onToggleItem={handleToggleItem}
+        onClearList={handleClearList}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }

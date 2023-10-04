@@ -7,16 +7,17 @@ export default function Form({ onAddItems }) {
 
   function handleSubmit(e) {
     e.preventDefault(); //to prevent the refresh of the pag
+
+    if (!descripition) return;
+
+    const newItem = { descripition, quantity, packed: false, id: Date.now() };
+    console.log(newItem);
+
+    onAddItems(newItem);
+
+    setDescription("");
+    setQuantity(1);
   }
-
-  if (!descripition) return;
-  const newItem = { descripition, quantity, packed: false, id: Date.now() };
-  console.log(newItem);
-
-  onAddItems(newItem);
-
-  setDescription("");
-  setQuantity(1);
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
